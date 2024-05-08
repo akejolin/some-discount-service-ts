@@ -21,22 +21,22 @@ export default (app:Koa) => async (ctx:Koa.Context, next: () => Promise<any>) =>
   }
 
   if (ctx.request.url.startsWith('/login')) {
-    return await next()
+    return await next();
   }
 
-  let token = ctx.token || ctx.req.headers["Authorization"]
+  let token = ctx.token || ctx.req.headers["Authorization"];
   if (!token) {
-    return ctx.respondToClient(ctx, 403, `Token is missing: ${token}`)
+    return ctx.respondToClient(ctx, 403, `Token is missing: ${token}`);
   }
 
-  return jwt.verify(token, config.secret, async (err:any, decoded:any) => {
+  jwt.verify(token, config.secret, async (err:any, decoded:any) => {
     if (err) {
-      return ctx.respondToClient(ctx, 401)
+      return  ctx.respondToClient(ctx, 401);
     }
 
-    ctx.setUserId(decoded.id)
-    ctx.setToken(token)
-
-    await next()
+    ctx.setUserId(decoded.id);
+    ctx.setToken(token);
   })
+  console.log('i have run it, yes!!!');
+  await next();
 }

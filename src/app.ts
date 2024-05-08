@@ -34,17 +34,9 @@ app.use(async (ctx: Koa.Context, next: () => Promise<any>) => {
   createDB('database', `${item.name}.json`, initData)
 })
 
-// Todo: move this to auth-jwt middleware
-app.context.setToken = (_token: string) => {
-  app.context.token = _token
-}
-app.context.setUserId = (id: string) => {
-  app.context.userId = id
-}
-
+app.use(authJwt(app));
 app.use(bodyParser())
 app.use(RespondToClient(app));
-//app.use(authJwt);
 app.use(router.routes());
 
 
