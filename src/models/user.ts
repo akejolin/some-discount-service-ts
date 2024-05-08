@@ -1,5 +1,4 @@
 import bcrypt from 'bcryptjs';
-
 import { User, Model } from '../types/dataTypes'
 
 export default {

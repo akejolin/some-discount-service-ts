@@ -5,7 +5,6 @@
 
 import Koa from 'koa';
 
-
 export default async (ctx: Koa.Context, next: () => Promise<any>) => {
   try {
     await next();

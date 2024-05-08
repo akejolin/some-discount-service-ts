@@ -8,8 +8,7 @@ import get from 'lodash.get';
 import getItemsDB from '../lib/db/get-items-db';
 import getItemDB from '../lib/db/get-item-db';
 import writeDB from '../lib/db/write-db';
-import findLatestId from '../lib/db/find-latest-id';
-import {Code, UserCode} from '../types/dataTypes'
+import {Code} from '../types/dataTypes'
 import { ResponseError } from '../lib/errors';
 
 type DiscountCodes <T> = Partial<T>

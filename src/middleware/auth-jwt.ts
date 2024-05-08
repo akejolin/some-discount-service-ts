@@ -20,7 +20,6 @@ export default (app:Koa) => async (ctx:Koa.Context, next: () => Promise<any>) =>
   app.context.setUserId = (id:string) => {
     app.context.userId = id
   }
-  return await next();
 
   if (ctx.request.url.startsWith('/login')) {
     return await next();

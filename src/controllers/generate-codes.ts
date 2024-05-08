@@ -7,7 +7,6 @@ import get from 'lodash.get';
 import generateCode from '../lib/generate/generate';
 
 import findLatestId from '../lib/db/find-latest-id';
-import DBmodel from '../models/code';
 import writeDB from '../lib/db/write-db';
 import getItemsDB from '../lib/db/get-items-db';
 import {Code} from '../types/dataTypes';
