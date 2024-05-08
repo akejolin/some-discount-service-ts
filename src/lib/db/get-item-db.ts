@@ -14,7 +14,7 @@ export default <T>(haystack:string, key: keyof T, needle:string) => new Promise<
     console.info('Error when reading DB array')
     db = []
   }
-  
+
   const target:T|null = db.find((item:T) => item[key] === needle) || null;
   resolve(target ? target : null);
 

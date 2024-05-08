@@ -1,8 +1,6 @@
 import Koa from 'koa';
 import * as HttpStatus from 'http-status-codes';
-
 import bodyParser from 'koa-bodyparser';
-import Router from 'koa-router';
 import RespondToClient from './middleware/respond-to-client';
 import authJwt from './middleware/auth-jwt';
 import router from './routes/router';

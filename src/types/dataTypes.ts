@@ -1,15 +1,13 @@
 export interface DbBase {
   id: number;
 }
-export interface User {
-  id: number;
+export interface User extends DbBase {
   username: string;
   email: string;
   password: string;
 }
 
-export interface Code {
-  id: number;
+export interface Code extends DbBase {
   code: string;
   desc: string;
   rate: number;
@@ -17,8 +15,7 @@ export interface Code {
   isUsed: boolean;
 }
 
-export interface UserCode {
-  id: number;
+export interface UserCode extends DbBase {
   userId: number;
   codeId: number;
 }

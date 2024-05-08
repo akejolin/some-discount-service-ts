@@ -21,6 +21,5 @@ export default <T>(dirName:string, fileName:string, data:T) => new Promise<void>
     }
     resolve()
   })
-
 })
 

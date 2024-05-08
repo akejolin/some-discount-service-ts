@@ -4,7 +4,12 @@ import shell from 'shelljs';
 import fileWrite from './file.write';
 
 
-export default async <T>(dir:string, fileName:string, data:T) => {
+export default async <T>(dir:string, fileName:string, data:T[]) => {
+
+  if (!Array.isArray(data)) {
+    throw new Error('DB_ERROR');
+  }
+
   const diskPath = path.resolve('.', dir)
   const filePath = `${diskPath}/${fileName}`
   if (!fs.existsSync(diskPath)) {
