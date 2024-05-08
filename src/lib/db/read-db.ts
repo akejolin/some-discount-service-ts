@@ -1,14 +1,23 @@
 
-import path from 'path'
-import fileRead from './file.read'
+import path from 'path';
+import fileRead from './file.read';
+import {DbError} from '../errors';
 
-export default async <T>(dirName: string, fileName: string) => new Promise<T>(async (resolve) => {
-  const diskPath = path.resolve('.', dirName)
+export default async <T>(dirName: string, fileName: string) => new Promise<T[]>(async (resolve, reject) => {
+  const diskPath = path.resolve('.', dirName);
   const filePath = `${diskPath}/${fileName}`
+
+  let data:string = '';
   try {
-    const data = await fileRead(filePath)
-    resolve(JSON.parse(data))
+    data = await fileRead(filePath);
   } catch(error) {
-    throw new Error(`error reading db file: ${filePath}`)
-  }
+    reject(new DbError('FILE_READ_ERROR'));
+  };
+
+  try {
+    resolve(JSON.parse(data));
+  } catch(error) {
+    reject(new DbError('JSON_PARSE_ERROR'));
+  };
+
 })

@@ -3,32 +3,44 @@
 */
 
 import shell from 'shelljs';
-import createDB from './create-db';
-import readDB from './read-db';
+import * as fs from 'fs'
 import path from 'path';
+import createDB from './create-db';
+import writeDB from './write-db';
 
-import {User} from '../../types/dataTypes';
 
 const diskPath = path.resolve('.', 'mock')
 
-const user:User = {
-  id:0,
-  username: 'testy',
-  email: 'test.testsson@testy.com',
-  password: 'abc123',
+interface SomeData {
+  id: number;
+  foo: string;
 }
 
-beforeEach(() => {
-  createDB('mock', 'test-db.json', [user])
+const someData:SomeData = {
+  id: 0,
+  foo: 'bar',
+}
+const db = [someData];
+
+beforeAll(() => {
+  createDB<SomeData>('mock', 'db-test.json', db);
 });
-afterEach(() => {
+afterAll(() => {
   shell.rm('-fr', diskPath)
 });
 
-describe('readDB', () => {
-  it('should read some data from a file on disk', async () => {
-    const data = await readDB('mock', 'test-db.json')
-    expect(data).toEqual([user])
+describe('writeDB', () => {
+  it('should write some data to the file on disk', async () => {
+    await fs.readFile(`${diskPath}/db-test.json`, 'utf8', (err, data) => {
+      expect(data).toEqual('[{"id":0,"foo":"bar"}]');
+    })
+  });
+  it('should write some data to the file on disk', async () => {
+    db.push(someData);
+    await writeDB<SomeData>('database', 'db-test.json', db);
+    await fs.readFile(`${diskPath}/db-test.json`, 'utf8', (err, data) => {
+      expect(data).toEqual('[{"id":0,"foo":"bar"},{"id":0,"foo":"bar"}]');
+    })
   })
 })
 

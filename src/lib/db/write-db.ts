@@ -6,18 +6,16 @@
 * @return void
 */
 
-
-
 import path from 'path';
 import * as fs from 'fs';
 
-export default <T>(dirName:string, fileName:string, data:T) => new Promise<void>(async (resolve) => {
+export default <T>(dirName:string, fileName:string, data:T[]) => new Promise<void>(async (resolve) => {
   const diskPath = path.resolve('.', dirName)
   const filePath = `${diskPath}/${fileName}`
 
   fs.writeFile(filePath, JSON.stringify(data), (err:any) => {
     if (err) {
-        throw new Error(err)
+        throw new Error('ERROR_WRITE_DB')
     }
     resolve()
   })

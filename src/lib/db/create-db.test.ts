@@ -7,6 +7,7 @@ import path from 'path'
 import * as fs from 'fs'
 import createDB from './create-db'
 
+
 const diskPath = path.resolve('.', 'mock')
 
 interface HelloWorld {

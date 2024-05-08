@@ -6,9 +6,9 @@
 
 import * as fs from 'fs';
 
-export default async (file:string) => new Promise<any>((resolve) => fs.readFile(file, (err, data) => {
+export default async (file:string) => new Promise<any>((resolve, reject) => fs.readFile(file, (err, data) => {
   if (err) {
-    throw new Error(err as any);
+    reject();
   }
   resolve(data)
 }))
