@@ -10,6 +10,7 @@ import {User} from '../types/dataTypes'
 import { config } from '../middleware/auth-jwt';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
+import { ResponseError } from '../lib/errors';
 
 export default async (ctx:Koa.Context) => {
 
@@ -21,20 +22,20 @@ export default async (ctx:Koa.Context) => {
 
   // Param username validation
   if (params.username === null) {
-    return ctx.respondToClient(ctx, 400 , `username param is missing`)
+    throw new ResponseError(`username param is missing`, 400, 'Bad request');
   }
 
   if (params.username === '') {
-    return ctx.respondToClient(ctx, 400 , `username param was provided but with empty value`)
+    throw new ResponseError(`username param was provided but with empty value`, 400, 'Bad request');
   }
 
   // Param password validation
   if (params.password === null) {
-    return ctx.respondToClient(ctx, 400 , `password param is missing`)
+    throw new ResponseError(`password param is missing`, 400, 'Bad request');
   }
 
   if (params.password === '') {
-    return ctx.respondToClient(ctx, 400 , `password param was provided but with empty value`)
+    throw new ResponseError(`password param was provided but with empty value`, 400, 'Bad request');
   }
 
   // Get user from db as a reference
@@ -48,7 +49,7 @@ export default async (ctx:Koa.Context) => {
     )
 
     if (!passwordIsValid) {
-      return ctx.respondToClient(ctx, 401, 'password is invalid')
+      throw new ResponseError(`Password is invalid`, 401, 'Unauthorized');
     }
 
     // create token
@@ -68,6 +69,6 @@ export default async (ctx:Koa.Context) => {
     })
 
   } else {
-    return ctx.respondToClient(ctx, 401, 'Username is invalid')
+    throw new ResponseError(`Username is invalid`, 401, 'Unauthorized');
   }
 }

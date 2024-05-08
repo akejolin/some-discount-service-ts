@@ -9,6 +9,7 @@ import getItemsDB from '../lib/db/get-items-db';
 import writeDB from '../lib/db/write-db';
 import findLatestId from '../lib/db/find-latest-id';
 import {Code, UserCode} from '../types/dataTypes'
+import { ResponseError } from '../lib/errors';
 
 type DiscountCodes <T> = Partial<T>
    & { isClaimed: boolean }
@@ -22,11 +23,11 @@ export default async (ctx: Koa.Context) => {
 
   // Param userId validation
   if (params.userId === null) {
-    return ctx.respondToClient(ctx, 400 , `user_id param is missing`)
+    throw new ResponseError(`user_id param is missing`, 400, 'Bad request');
   }
 
   if (params.userId === '') {
-    return ctx.respondToClient(ctx, 400 , `user_id param was provided but with empty value`)
+    throw new ResponseError(`user_id param was provided but with empty value`, 400, 'Bad request');
   }
 
 
@@ -52,7 +53,7 @@ export default async (ctx: Koa.Context) => {
 
   // Abort if not found
   if (discountCodes.length < 1) {
-    return ctx.respondToClient(ctx, 400, 'No available codes')
+    throw new ResponseError(`No available codes`, 404, 'Not found');
   }
 
   // Select and claim first available code

@@ -10,6 +10,7 @@ import getItemDB from '../lib/db/get-item-db';
 import writeDB from '../lib/db/write-db';
 import findLatestId from '../lib/db/find-latest-id';
 import {Code, UserCode} from '../types/dataTypes'
+import { ResponseError } from '../lib/errors';
 
 type DiscountCodes <T> = Partial<T>
    & { isClaimed: boolean }
@@ -22,10 +23,8 @@ export default async (ctx: Koa.Context) => {
   }
 
   if (params.code === '') {
-    return ctx.respondToClient(ctx, 400 , `no code was provided.`)
+    throw new ResponseError(`No code was provided.`, 400, 'Forbidden');
   }
-
-
 
 
   // Select all codes
@@ -37,10 +36,10 @@ export default async (ctx: Koa.Context) => {
   code = await getItemDB('codes.json', 'code', params.code);
 
   if (!code) {
-    return ctx.respondToClient(ctx, 400 , `The code you provided is invalid.`);
+    throw new ResponseError(`The code you provided is invalid.`, 403, 'Forbidden');
   }
   if (code.isUsed) {
-    return ctx.respondToClient(ctx, 400 , `The code you provided is already used.`);
+    throw new ResponseError(`The code you provided is already used.`, 403, 'Forbidden');
   }
 
   // Code when valid code was provided ...

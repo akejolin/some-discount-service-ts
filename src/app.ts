@@ -18,8 +18,7 @@ app.use(async (ctx: Koa.Context, next: () => Promise<any>) => {
   try {
     await next();
   } catch (error:any) {
-    ctx.status = error.statusCode || error.status || HttpStatus.INTERNAL_SERVER_ERROR;
-    error.status = ctx.status;
+    ctx.status = error.statusCode || error.status;
     ctx.body = { error };
     ctx.app.emit('error', error, ctx);
   }
