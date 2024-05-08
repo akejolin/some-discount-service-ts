@@ -37,6 +37,5 @@ export default (app:Koa) => async (ctx:Koa.Context, next: () => Promise<any>) =>
     ctx.setUserId(decoded.id);
     ctx.setToken(token);
   })
-  console.log('i have run it, yes!!!');
   await next();
 }
