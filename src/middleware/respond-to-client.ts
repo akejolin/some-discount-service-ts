@@ -4,12 +4,18 @@
 * @return void
 */
 import Koa from 'koa';
+import { RespondToClient } from '../types/system';
 
-const respondToClient = (ctx:Koa.Context, status:number=200, data:string='') => {
+interface RespondToClientResponse {
+  statusCode: number;
+  body: RespondToClient | string | undefined;
+}
 
-  const body = {
+const respondToClient = (ctx:Koa.Context, status:number=200, data: RespondToClient|string|null=null) => {
+
+  const body:RespondToClientResponse = {
     statusCode:  status,
-    body: data,
+    body: data ? data : undefined,
   }
 
   ctx.status = status;

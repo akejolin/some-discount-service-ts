@@ -8,7 +8,22 @@ export interface User {
   password: string;
 }
 
+export interface Code {
+  id: number;
+  code: string;
+  desc: string;
+  rate: number;
+  target: string[];
+  isUsed: boolean;
+}
+
+export interface UserCode {
+  id: number;
+  userId: number;
+  codeId: number;
+}
+
 export interface Model {
   name: string;
-  model: DbBase | User;
+  model: DbBase | User | UserCode;
 }

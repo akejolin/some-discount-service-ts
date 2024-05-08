@@ -7,6 +7,8 @@ import RespondToClient from './middleware/respond-to-client';
 import authJwt from './middleware/auth-jwt';
 import router from './routes/router';
 import userModel from './models/user';
+import codeModel from './models/code';
+import userCodeModel from './models/user-code';
 import {DbBase, Model} from './types/dataTypes'
 import createDB from './lib/db/create-db'
 
@@ -27,9 +29,9 @@ app.use(async (ctx: Koa.Context, next: () => Promise<any>) => {
 
 // Init db models
 
-[userModel].forEach((item: Model) => {
+[userModel, codeModel, userCodeModel].forEach((item: Model) => {
   const initData:DbBase[] = [item.model] || [];
-  createDB('db', `${item.name}.json`, initData)
+  createDB('database', `${item.name}.json`, initData)
 })
 
 // Todo: move this to auth-jwt middleware

@@ -10,4 +10,4 @@ export default {
     email: 'testy@testy.com',
     password: bcrypt.hashSync('abc123', 8),
   } as User
-};
+} as Model;
