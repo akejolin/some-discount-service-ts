@@ -1,6 +1,6 @@
 # some-discount-service-ts
 
-This service will handle discount codes. It will create codes connected to users when codes are used.
+This service will handle discount codes. It will create codes connected to users when codes are used. The App is built on a simple Koa app. 
 
 ## Getting started
 
@@ -28,7 +28,7 @@ Login
 | `username` | yes | string  | test username is: testy |
 | `password` | yes | number  | test password is: 12345
 
-Example: [http://localhost:8000/login?username=testy&password=12345](http://localhost:8000/login?username=testy&password=12345) 
+Example: [http://localhost:3000/login?username=testy&password=12345](http://localhost:3000/login?username=testy&password=12345) 
 
 
 ### POST /generate-codes
@@ -54,7 +54,7 @@ Generate discount codes
 ```
 
 
-Example: [http://localhost:8000/generate-codes?brand=blocket&amount=2](http://localhost:8000/generate-codes?brand=blocket&amount=2)
+Example: [http://localhost:3000/generate-codes?amount=2](http://localhost:3000/generate-codes?amount=2)
 
 
 ### PUT /get-code
@@ -77,4 +77,4 @@ Generate discount codes
 ```
 
 
-Example: [http://localhost:8000/get-code?brand_id=0&user_id=0](http://localhost:8000/get-code?brand_id=0&user_id=0)
+Example: [http://localhost:3000/get-code?user_id=0](http://localhost:3000/get-code?user_id=0)
