@@ -28,7 +28,7 @@ export default (app:Koa) => async (ctx:Koa.Context, next: () => Promise<any>) =>
 
   let token = ctx.token || ctx.req.headers["Authorization"];
   if (!token) {
-      throw new ResponseError(`Token is missing: ${token}`, 403, 'Forbidden');
+      throw new ResponseError(`Token is missing:`, 403, 'Forbidden');
   }
 
   jwt.verify(token, config.secret, async (err:any, decoded:any) => {

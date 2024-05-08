@@ -1,5 +1,5 @@
 /**
-* @desc Test to write cache file.
+* @desc Test to write mock file.
 */
 
 import shell from 'shelljs'
